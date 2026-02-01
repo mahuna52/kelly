@@ -1,73 +1,37 @@
-// script.js
+// script.js for car sales website shopping cart and admin functionality
 
 // Shopping Cart Functionality
-class ShoppingCart {
-    constructor() {
-        this.items = [];
-    }
+let cart = [];
 
-    addItem(product) {
-        this.items.push(product);
-    }
-
-    removeItem(productId) {
-        this.items = this.items.filter(item => item.id !== productId);
-    }
-
-    getTotal() {
-        return this.items.reduce((total, item) => total + item.price, 0);
-    }
+function addToCart(product) {
+    cart.push(product);
+    console.log(`${product.name} added to cart.`);
 }
 
-// Admin Authentication
-class AdminAuth {
-    constructor() {
-        this.admins = new Set();
-    }
-
-    addAdmin(username) {
-        this.admins.add(username);
-    }
-
-    isAdmin(username) {
-        return this.admins.has(username);
-    }
+function removeFromCart(productId) {
+    cart = cart.filter(product => product.id !== productId);
+    console.log(`Product with ID ${productId} removed from cart.`);
 }
 
-// Product Management
-class ProductManager {
-    constructor() {
-        this.products = [];
-    }
-
-    addProduct(product) {
-        this.products.push(product);
-    }
-
-    getProducts() {
-        return this.products;
-    }
-
-    updateProduct(productId, updatedProduct) {
-        const index = this.products.findIndex(product => product.id === productId);
-        if (index !== -1) {
-            this.products[index] = { ...this.products[index], ...updatedProduct };
-        }
-    }
-
-    deleteProduct(productId) {
-        this.products = this.products.filter(product => product.id !== productId);
-    }
+function viewCart() {
+    console.log('Shopping Cart:', cart);
 }
 
-// Example Use
-const cart = new ShoppingCart();
-const adminAuth = new AdminAuth();
-const productManager = new ProductManager();
+// Admin Functionality
+function viewOrders(orders) {
+    orders.forEach(order => {
+        console.log(`Order ID: ${order.id}, Total: ${order.total}`);
+    });
+}
 
-adminAuth.addAdmin('admin1');
-adminAuth.addAdmin('admin2');
-productManager.addProduct({ id: 1, name: 'Apple', price: 0.5 });
-productManager.addProduct({ id: 2, name: 'Banana', price: 0.75 });
+function updateOrderStatus(orderId, status) {
+    console.log(`Order ID ${orderId} status updated to ${status}.`);
+}
 
-console.log(productManager.getProducts());
+// Example Product
+const product1 = {id: 1, name: 'Toyota Camry', price: 24000};
+addToCart(product1);
+
+// Example Order
+const orders = [{id: 1, total: 24000}, {id: 2, total: 30000}];
+viewOrders(orders);
